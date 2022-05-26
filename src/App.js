@@ -1,19 +1,23 @@
 //该处导入第三方库
 import React from 'react';
-
+import { HashRouter, useRoutes } from 'react-router-dom';
 //该处导入功能性如网络请求和工具类
-
+import routes from '@/router/index.js'
 
 
 import MusicHeader from './components/app-header';
 import MusicFooter from './components/app-footer';
-function App() {
+function RouteElement () {
+  const element = useRoutes(routes)
+  return element
+}
+function App () {
   return (
-    <div>
+    <HashRouter>
       <MusicHeader></MusicHeader>
-      <h1>react-music</h1>
+      <RouteElement />
       <MusicFooter></MusicFooter>
-    </div>
+    </HashRouter>
   );
 }
 
