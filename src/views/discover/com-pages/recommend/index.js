@@ -1,22 +1,28 @@
-import React, { memo, useEffect } from 'react';
-import { useDispatch, useSelector, shallowEqual } from 'react-redux';
-import { getTopBannerAction } from './store/actions';
+import React, { memo } from 'react';
+
+import TopBanner from './c-cpns/top-banner';
+import Rcmd from './c-cpns/rcmd';
+import NewAlbum from './c-cpns/new-album';
+import HotTop from './c-cpns/hot-top';
+import {
+  RecommendWrapper,
+  Content,
+  RecommendLeft,
+  RecommendRight,
+} from './style';
 const Recommend = memo((props) => {
-  const dispatch = useDispatch();
-  //useSelector:传入两个参数，第一个是回调函数，第二个是比较的参数，如果比较的参数没有变化，就不会执行回调函数
-  const { topBanners } = useSelector((state) => {
-    return {
-      topBanners: state.getIn(['recommendReducer', 'topBanners']),
-    };
-  }, shallowEqual);
-  console.log(topBanners);
-  useEffect(() => {
-    dispatch(getTopBannerAction());
-  }, [dispatch]);
   return (
-    <div>
-      <h1>{topBanners.banners && topBanners.banners.length}</h1>
-    </div>
+    <RecommendWrapper>
+      <TopBanner></TopBanner>
+      <Content className="wrap-v2">
+        <RecommendLeft>
+          <Rcmd></Rcmd>
+          <NewAlbum></NewAlbum>
+          <HotTop></HotTop>
+        </RecommendLeft>
+        <RecommendRight></RecommendRight>
+      </Content>
+    </RecommendWrapper>
   );
 });
 export default Recommend;

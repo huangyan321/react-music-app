@@ -1,13 +1,45 @@
-@import "~normalize.css";
+@import '~normalize.css';
 /* @import "~antd/dist/antd.css"; */
 
 /* 样式的重置 */
-body, html, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, header, menu, section, p, input, td, th, ins {
+body,
+html,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+ol,
+li,
+dl,
+dt,
+dd,
+header,
+menu,
+section,
+p,
+input,
+td,
+th,
+ins {
   padding: 0;
   margin: 0;
 }
-
-ul, ol, li {
+body,
+textarea,
+select,
+input,
+button {
+  font-size: 12px;
+  color: #333;
+  font-family: Arial, Helvetica, sans-serif;
+  -webkit-text-size-adjust: none;
+}
+ul,
+ol,
+li {
   list-style: none;
 }
 
@@ -21,11 +53,16 @@ a:hover {
   text-decoration: underline;
 }
 
-i, em {
+i,
+em {
   font-style: normal;
 }
 
-input, textarea, button, select, a {
+input,
+textarea,
+button,
+select,
+a {
   outline: none;
   border: none;
 }
@@ -41,7 +78,11 @@ img {
 }
 
 /* 全局样式 */
-body, textarea, select, input, button {
+body,
+textarea,
+select,
+input,
+button {
   font-size: 12px;
   color: #333;
   font-family: Arial, Helvetica, sans-serif;
@@ -72,7 +113,7 @@ body, textarea, select, input, button {
   background: url(../img/sprite_02.png) no-repeat 0 9999px;
 }
 
-.sprite_covor {
+.sprite_cover {
   background: url(../img/sprite_cover.png) no-repeat 0 9999px;
 }
 
@@ -95,7 +136,6 @@ body, textarea, select, input, button {
 .sprite_table {
   background: url(../img/sprite_table.png) no-repeat 0 9999px;
 }
-
 .image_cover {
   position: absolute;
   left: 0;
@@ -105,4 +145,3 @@ body, textarea, select, input, button {
   text-indent: -9999px;
   background: url(../img/sprite_cover.png) no-repeat -145px -57px;
 }
-

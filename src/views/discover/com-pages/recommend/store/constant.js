@@ -1,1 +1,7 @@
 export const GET_BANNERS = 'GET_BANNERS'
+export const GET_RCMD = 'GET_RCMD'
+export const GET_NEW_ALBUM = 'GET_NEW_ALBUM'
+export const GET_TOP_LIST = 'GET_TOP_LIST'
+export const GET_UP_LIST = 'GET_UP_LIST'
+export const GET_NEW_LIST = 'GET_NEW_LIST'
+export const GET_ORIGIN_LIST = 'GET_ORIGIN_LIST'

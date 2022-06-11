@@ -19,9 +19,9 @@ const Discover = memo(() => {
           })}
         </TopMenu>
       </div>
-      <h1>
+      <div>
         <Outlet></Outlet>
-      </h1>
+      </div>
     </DiscoverWrapper>
   );
 });
