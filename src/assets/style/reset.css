@@ -136,6 +136,9 @@ button {
 .sprite_table {
   background: url(../img/sprite_table.png) no-repeat 0 9999px;
 }
+.sprite_player {
+  background: url(../img/playbar.png) no-repeat 0 9999px;
+}
 .image_cover {
   position: absolute;
   left: 0;

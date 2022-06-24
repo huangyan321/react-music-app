@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 import store from '@/store';
 import MusicHeader from './components/app-header';
 import MusicFooter from './components/app-footer';
+import MusicPlayer from './views/player/app-player-bar';
 function RouteElement() {
   const element = useRoutes(routes);
   return element;
@@ -19,6 +20,7 @@ function App() {
         <MusicHeader></MusicHeader>
         <RouteElement />
         <MusicFooter></MusicFooter>
+        <MusicPlayer></MusicPlayer>
       </HashRouter>
     </Provider>
   );
