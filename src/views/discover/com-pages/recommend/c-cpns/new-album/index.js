@@ -10,7 +10,7 @@ import { NewAlbumWrapper } from './style';
 const NewAlbum = memo(() => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getNewAlbumAction({ limit: 10, id: 32311 }));
+    dispatch(getNewAlbumAction({ limit: 10 }));
   }, [dispatch]);
   const { newAlbums } = useSelector((state) => {
     return {
@@ -27,11 +27,11 @@ const NewAlbum = memo(() => {
               .map((item) => {
                 return newAlbums.slice(item * 5, item * 5 + 5);
               })
-              .map((item) => {
+              .map((item,index) => {
                 return (
-                  <div className="onehang">
-                    {item.map((item) => {
-                      return <AlbumItem key={item.id} info={item}></AlbumItem>;
+                  <div className="onehang" key={index}>
+                    {item.map((i) => {
+                      return <AlbumItem key={i.picUrl} info={i}></AlbumItem>;
                     })}
                   </div>
                 );

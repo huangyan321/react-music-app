@@ -9,7 +9,7 @@ const ThemeHeader = memo((props) => {
         <div className="keywords flex-center">
           {keywords.map((item, index) => {
             return (
-              <div>
+              <div key={item}>
                 <a href="todo">{item}</a>
                 <span className="divider">|</span>
               </div>

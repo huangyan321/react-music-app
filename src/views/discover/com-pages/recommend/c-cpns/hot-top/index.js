@@ -19,7 +19,7 @@ const HotTop = memo(() => {
       <div className="bill top-bg">
         {topList.map((item, index) => {
           return (
-            <div className="blk">
+            <div className="blk" key={item.coverImg}>
               <div className="blk-top">
                 <div className="cover">
                   <img src={item && item.coverImg} alt="" />
@@ -41,7 +41,7 @@ const HotTop = memo(() => {
                 <ol className="blist">
                   {item.list.map((i, idx) => {
                     return (
-                      <li className="list-item">
+                      <li className="list-item" key={i.name}>
                         <span className="top-number">{idx + 1}</span>
                         <a href="todo" className="thide">
                           {i.name}

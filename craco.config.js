@@ -15,8 +15,9 @@ module.exports = {
     },
   ],
   webpack: {
+    devtool: true,
     alias: {
-      '@': resolve('src')
-    }
+      '@': resolve('src'),
+    },
   },
 };
