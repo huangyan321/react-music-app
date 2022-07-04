@@ -125,6 +125,7 @@ export const Operation = styled.div`
     text-indent: -9999px;
   }
   .ico {
+    cursor: pointer;
     width: 25px;
     height: 25px;
     /* margin: 11px 2px 0 0; */
@@ -148,7 +149,16 @@ export const Operation = styled.div`
       background-position: -2px -248px;
     }
     .loop {
-      background-position: -3px -344px;
+      background-position: ${(props) => {
+        switch (props.sequence) {
+          case 2:
+            return '-66px -248px;';
+          case 3:
+            return '-66px -344px';
+          default:
+            return '-3px -344px;';
+        }
+      }};
     }
     .add {
       width: 59px;

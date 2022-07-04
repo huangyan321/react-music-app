@@ -15,9 +15,13 @@ module.exports = {
     },
   ],
   webpack: {
-    devtool: true,
     alias: {
       '@': resolve('src'),
+    },
+    configure: (webpackConfig, { env, paths }) => {
+      // webpackConfig.devtool = 'source-map';
+      // console.log(webpackConfig);
+      return webpackConfig;
     },
   },
 };

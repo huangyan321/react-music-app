@@ -97,6 +97,7 @@ export const HotTopWrapper = styled.div`
           justify-content: center;
           align-items: center;
           .list-item {
+            cursor: pointer;
             display: inline-block;
             width: 17px;
             height: 17px;
@@ -116,7 +117,7 @@ export const HotTopWrapper = styled.div`
         }
       }
       .showmore {
-          padding-left: 80px;
+        padding-left: 80px;
       }
     }
   }

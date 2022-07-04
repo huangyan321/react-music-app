@@ -63,6 +63,9 @@ export function parseTime(time, cFormat) {
 export function formatDt(time) {
   return parseTime(time, '{i}:{s}');
 }
+export function getRandom(d) {
+  return Math.floor(Math.random() * d);
+}
 export function getMusicUrl(id) {
   return `https://music.163.com/song/media/outer/url?id=${id}.mp3 `;
 }

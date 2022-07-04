@@ -2,6 +2,7 @@ import React, { memo, useEffect } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import ThemeHeader from '@/components/theme-header';
 import { getTopListAction } from '../../store/actions';
+import { getSongDetailAction } from '@/views/player/store/actions';
 import { HotTopWrapper } from './style';
 const HotTop = memo(() => {
   const dispatch = useDispatch();
@@ -13,6 +14,9 @@ const HotTop = memo(() => {
       topList: state.getIn(['recommendReducer', 'topList']),
     };
   }, shallowEqual);
+  const playMusic = (item) => {
+    dispatch(getSongDetailAction({ ids: item.id }));
+  };
   return (
     <HotTopWrapper>
       <ThemeHeader title="榜单"></ThemeHeader>
@@ -41,30 +45,24 @@ const HotTop = memo(() => {
                 <ol className="blist">
                   {item.list.map((i, idx) => {
                     return (
-                      <li className="list-item" key={i.name}>
+                      <li className="list-item" key={i.id}>
                         <span className="top-number">{idx + 1}</span>
                         <a href="todo" className="thide">
                           {i.name}
                         </a>
                         <div className="opera">
-                          <a
-                            href="todo"
+                          <button
                             className="sprite_02 item-play list-item"
+                            onClick={() => playMusic(i)}
                           >
                             &nbsp;
-                          </a>
-                          <a
-                            href="todo"
-                            className="sprite_icon2 item-add list-item"
-                          >
+                          </button>
+                          <button className="sprite_icon2 item-add list-item">
                             &nbsp;
-                          </a>
-                          <a
-                            href="todo"
-                            className="sprite_02 item-sub list-item"
-                          >
+                          </button>
+                          <button className="sprite_02 item-sub list-item">
                             &nbsp;
-                          </a>
+                          </button>
                         </div>
                       </li>
                     );

@@ -3,7 +3,11 @@ import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { PlayerBarWrapper, Control, MusicInfo, Operation } from './style';
 import { Slider } from 'antd';
 
-import { getSongDetailAction } from '../store/actions';
+import {
+  getSongDetailAction,
+  changeCurrentSequence,
+  changeCurrentSong,
+} from '../store/actions';
 import { formatImgUrl, formatDt, getMusicUrl } from '@/utils/usual';
 const Player = memo(() => {
   //data hooks
@@ -11,9 +15,10 @@ const Player = memo(() => {
   const [currentTime, setCurrentTime] = useState(0);
   const [isDrag, setIsDrag] = useState(false);
   const dispatch = useDispatch();
-  const { currentSong } = useSelector((state) => {
+  const { currentSong, sequence } = useSelector((state) => {
     return {
-      currentSong: state.getIn(['songsDetailsReducer', 'currentSong']),
+      currentSong: state.getIn(['playerReducer', 'currentSong']),
+      sequence: state.getIn(['playerReducer', 'sequence']),
     };
   }, shallowEqual);
 
@@ -37,9 +42,24 @@ const Player = memo(() => {
   const showDuration = formatDt(duration);
   const showCurrentTime = formatDt(currentTime);
   const musicId = currentSong && currentSong.id;
+
   useEffect(() => {
     playerRef.current.src = getMusicUrl(musicId);
+    playerRef.current
+      .play()
+      .then((res) => {
+        setPlayStatus(true);
+      })
+      .catch((err) => {
+        setPlayStatus(false);
+      });
   }, [currentSong, musicId]);
+  const changeSong = useCallback(
+    (tag) => {
+      dispatch(changeCurrentSong(tag));
+    },
+    [dispatch]
+  );
   //触发播放
   const togglePlay = useCallback(() => {
     if (musicId) {
@@ -59,7 +79,14 @@ const Player = memo(() => {
       setCurrentTime((e.target.currentTime * 1000).toFixed(0));
     }
   };
-
+  const currentMusicOnEnded = useCallback(() => {
+    if (sequence === 3) {
+      playerRef.current.currentTime = 0;
+      playerRef.current.play();
+    } else {
+      changeSong(1);
+    }
+  }, [changeSong, sequence]);
   const sliderChange = useCallback((value) => {
     setIsDrag(true);
     setCurrentTime(value);
@@ -70,13 +97,27 @@ const Player = memo(() => {
     playerRef.current.play();
     setPlayStatus(true);
   }, []);
+  const changeSequence = useCallback(() => {
+    const seq = sequence + 1;
+    if (seq > 3) {
+      dispatch(changeCurrentSequence(1));
+    } else {
+      dispatch(changeCurrentSequence(seq));
+    }
+  }, [sequence, dispatch]);
   return (
     <PlayerBarWrapper className="sprite_player">
       <div className="content wrap-v2">
         <Control playStatus={playStatus}>
-          <button className="sprite_player pre"></button>
+          <button
+            className="sprite_player pre"
+            onClick={() => changeSong(-1)}
+          ></button>
           <button className="sprite_player play" onClick={togglePlay}></button>
-          <button className="sprite_player next"></button>
+          <button
+            className="sprite_player next"
+            onClick={() => changeSong(1)}
+          ></button>
         </Control>
         <MusicInfo>
           <div className="image">
@@ -118,7 +159,7 @@ const Player = memo(() => {
             </div>
           </div>
         </MusicInfo>
-        <Operation>
+        <Operation sequence={sequence}>
           <div>
             <a href="/todo" className="ico huazhonghua">
               画中画歌词
@@ -134,9 +175,9 @@ const Player = memo(() => {
             <a href="/todo" className="ico volume sprite_player">
               音量
             </a>
-            <a href="/todo" className="ico loop sprite_player">
+            <button className="ico loop sprite_player" onClick={changeSequence}>
               循环
-            </a>
+            </button>
             <span className="add sprite_player">
               <a href="/todo" className="list sprite_player ico">
                 10
@@ -145,7 +186,11 @@ const Player = memo(() => {
           </div>
         </Operation>
       </div>
-      <audio ref={playerRef} onTimeUpdate={timeUpdate}></audio>
+      <audio
+        ref={playerRef}
+        onTimeUpdate={timeUpdate}
+        onEnded={currentMusicOnEnded}
+      ></audio>
     </PlayerBarWrapper>
   );
 });
