@@ -17,7 +17,6 @@ function App() {
   return (
     <Provider store={store}>
       <HashRouter>
-        <h1>哈哈哈哈</h1>
         <MusicHeader></MusicHeader>
         <RouteElement />
         <MusicFooter></MusicFooter>
