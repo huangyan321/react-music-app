@@ -1,8 +1,7 @@
 import React, { memo, useState, useCallback, useEffect, useRef } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { PlayerBarWrapper, Control, MusicInfo, Operation } from './style';
-import { Slider } from 'antd';
-
+import { Slider, message } from 'antd';
 import {
   getSongDetailAction,
   changeCurrentSequence,
@@ -15,10 +14,11 @@ const Player = memo(() => {
   const [currentTime, setCurrentTime] = useState(0);
   const [isDrag, setIsDrag] = useState(false);
   const dispatch = useDispatch();
-  const { currentSong, sequence } = useSelector((state) => {
+  const { currentSong, sequence, currentLyrics } = useSelector((state) => {
     return {
       currentSong: state.getIn(['playerReducer', 'currentSong']),
       sequence: state.getIn(['playerReducer', 'sequence']),
+      currentLyrics: state.getIn(['playerReducer', 'currentLyrics']),
     };
   }, shallowEqual);
 
@@ -71,12 +71,34 @@ const Player = memo(() => {
       }
       setPlayStatus(!playStatus);
     }
-    // setPlayStatus(!playStatus);
+    // setPlayStatus(!playStatus);s
   }, [playStatus, musicId]);
 
   const timeUpdate = (e) => {
     if (!isDrag) {
       setCurrentTime((e.target.currentTime * 1000).toFixed(0));
+      const l = findCurrentLyrics(
+        (e.target.currentTime * 1000).toFixed(0),
+        currentLyrics
+      );
+      if (l) {
+        info(l.lyrics);
+      }
+    }
+  };
+  const info = (info) => {
+    message.open({
+      content: info,
+      duration: 0,
+      key: 'lyric',
+      className: 'lyric-custom',
+    });
+  };
+  const findCurrentLyrics = (time, lyrics) => {
+    for (let i = 0; i < lyrics.length; i++) {
+      if (lyrics[i].time > time) {
+        return lyrics[i - 1];
+      }
     }
   };
   const currentMusicOnEnded = useCallback(() => {

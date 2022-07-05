@@ -1,6 +1,6 @@
-import { getSongDetail } from '@/api/player';
+import { getSongDetail, getLyric } from '@/api/player';
 import * as actionTypes from './constant';
-import { getRandom } from '@/utils/usual';
+import { getRandom, parseLyric } from '@/utils/usual';
 function changeCurrentSongAction(currentSong) {
   return {
     type: actionTypes.CHANGE_CURRENT_SONG,
@@ -25,6 +25,12 @@ function changeCurrentSequenceAction(sequence) {
     sequence,
   };
 }
+function changeCurrentLyricAction(lyric) {
+  return {
+    type: actionTypes.CHANGE_CURRENT_LYRIC,
+    lyric,
+  };
+}
 //获取当前播放音乐数据
 export const getSongDetailAction = function (query) {
   return (dispatch, getState) => {
@@ -44,6 +50,11 @@ export const getSongDetailAction = function (query) {
         dispatch(changeCurrentSongAction(song));
       });
     }
+    dispatch(
+      getCurrentLyric({
+        id: ids,
+      })
+    );
   };
 };
 export const changeCurrentSong = function (tag) {
@@ -102,5 +113,15 @@ export const changeCurrentSong = function (tag) {
 export const changeCurrentSequence = function (seq) {
   return (dispatch, getState) => {
     dispatch(changeCurrentSequenceAction(seq));
+  };
+};
+export const getCurrentLyric = function (query) {
+  return (dispatch, getState) => {
+    getLyric({
+      id: query.id,
+    }).then((res) => {
+      if (res.code === 200 && res.lrc && res.lrc.lyric)
+        dispatch(changeCurrentLyricAction(parseLyric(res.lrc.lyric)));
+    });
   };
 };

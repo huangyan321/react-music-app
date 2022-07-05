@@ -69,3 +69,21 @@ export function getRandom(d) {
 export function getMusicUrl(id) {
   return `https://music.163.com/song/media/outer/url?id=${id}.mp3 `;
 }
+const regExp = /\[(\d{2}):(\d{2})\.(\d{2,3})\]/;
+export function parseLyric(lyric) {
+  const lyrics = lyric.split('\n');
+  const lyricObj = [];
+  for (const item of lyrics) {
+    const res = regExp.exec(item);
+    if (!res) continue;
+    const time1 = res[1] * 60 * 1000;
+    const time2 = res[2] * 1000;
+    const time3 = res[3].length === 3 ? res[3] * 1 : res[3] * 10;
+    const lyrics = item.replace(regExp, '').trim();
+    lyricObj.push({
+      time: time1 + time2 + time3,
+      lyrics,
+    });
+  }
+  return lyricObj;
+}

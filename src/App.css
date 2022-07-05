@@ -1,1 +1,11 @@
 @import '~antd/dist/antd.css';
+.ant-message {
+  bottom: 50px;
+  top: auto;
+}
+.lyric-custom {
+  color: blue;
+  bottom: 15px;
+  font-size: 20px;
+  opacity: 0.5;
+}

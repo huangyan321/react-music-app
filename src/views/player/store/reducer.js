@@ -576,6 +576,7 @@ const defaultInit = Map({
     },
   ],
   sequence: 1, //1:顺序 2：随机 3：单曲循环
+  currentLyrics: [],
 });
 export default function songsDetailsReducer(state = defaultInit, action) {
   switch (action.type) {
@@ -588,6 +589,8 @@ export default function songsDetailsReducer(state = defaultInit, action) {
       return state.set('playList', action.playList);
     case actionTypes.CHANGE_CURRENT_SEQUENCE:
       return state.set('sequence', action.sequence);
+    case actionTypes.CHANGE_CURRENT_LYRIC:
+      return state.set('currentLyrics', action.lyric);
     default:
       return state;
   }
