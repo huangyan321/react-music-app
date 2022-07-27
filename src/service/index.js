@@ -1,6 +1,6 @@
 import axios from 'axios';
 const request = axios.create({
-  baseURL: 'http://159.75.104.17:4001',
+  baseURL: 'https://musicapi.hgyn23.cn',
   timeout: 5000,
 });
 request.interceptors.response.use(config => {
